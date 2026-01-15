@@ -93,6 +93,7 @@ export default function GlobeSection() {
               <div key={i} className="h-28 sm:h-36 md:h-40">
                 <img
                   src={img}
+                  alt="spottr"
                   className="object-cover w-full h-full rounded-2xl"
                 />
               </div>
@@ -101,10 +102,10 @@ export default function GlobeSection() {
 
             {/* Row 2 */}
             <div className="h-28 sm:h-36 md:h-40">
-              <img src={Image5} className="object-cover w-full h-full rounded-2xl" />
+              <img src={Image5} alt="spottr" className="object-cover w-full h-full rounded-2xl" />
             </div>
             <div className="h-28 sm:h-36 md:h-40">
-              <img src={Image6} className="object-cover w-full h-full rounded-2xl" />
+              <img src={Image6} alt="spottr" className="object-cover w-full h-full rounded-2xl" />
             </div>
             <div className="h-28 sm:h-36 md:h-40 flex justify-center items-center">
               <button
@@ -115,7 +116,7 @@ export default function GlobeSection() {
               </button>
             </div>
             <div className="h-28 sm:h-36 md:h-40">
-              <img src={Image7} className="object-cover w-full h-full rounded-2xl" />
+              <img src={Image7} alt="spottr" className="object-cover w-full h-full rounded-2xl" />
             </div>
 
             {/* Row 3 */}
@@ -123,6 +124,7 @@ export default function GlobeSection() {
               <div key={i + 8} className="h-28 sm:h-36 md:h-40">
                 <img
                   src={img}
+                  alt="spottr"
                   className="object-cover w-full h-full rounded-2xl"
                 />
               </div>
@@ -130,7 +132,7 @@ export default function GlobeSection() {
 
             {/* Row 4 */}
             <div className="h-28 sm:h-36 md:h-40">
-              <img src={Image11} className="object-cover w-full h-full rounded-2xl" />
+              <img src={Image11}  alt="spottr" className="object-cover w-full h-full rounded-2xl" />
             </div>
             <div className="h-28 sm:h-36 md:h-40 flex justify-center items-center">
               <button
@@ -141,11 +143,11 @@ export default function GlobeSection() {
               </button>
             </div>
             <div className="h-28 sm:h-36 md:h-40">
-              <img src={Image12} className="object-cover w-full h-full rounded-2xl" />
+              <img src={Image12} alt="spottr" className="object-cover w-full h-full rounded-2xl" />
             </div>
         
             <div className="h-28 sm:h-36 md:h-40 hidden md:block">
-              <img src={Image13} className="object-cover w-full h-full rounded-2xl" />
+              <img src={Image13} alt="spottr" className="object-cover w-full h-full rounded-2xl" />
             </div>
           </div>
         </div>

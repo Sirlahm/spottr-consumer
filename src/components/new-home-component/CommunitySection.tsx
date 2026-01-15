@@ -6,6 +6,11 @@ import "swiper/css/navigation";
 import Button from "./Button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
+import teamBlack from "../../assets/images/team-black.png";
+import teamWhite from "../../assets/images/team-white.png";
+import spacer from "../../assets/images/spacer.png";
+import baller from "../../assets/images/baller.png";
+
 export default function CommunitySection() {
   const swiperRef = useRef<any>(null);
 
@@ -13,24 +18,41 @@ export default function CommunitySection() {
     {
       title: "Global Community",
       description:
-        "The 2 rooms community connects. Join a room, complete tasks, cheer your peers on, win exclusive prizes, land a Spottr grant and host the most insane parties.",
-      team1: { name: "Join Team White", bg: "bg-white", textColor: "text-white", btnBg: "bg-black", btnText: "text-white" },
-      team2: { name: "Join Team Black", bg: "bg-black", textColor: "text-black", btnBg: "bg-white", btnText: "text-black" },
+        "The 2 rooms community is a connector. Join a team, complete tasks, cheer your peers on, win exclusive individual & team prizes and host the most insane parties",
+      team1: {
+        name: "Join Team White",
+        image: teamWhite,
+        bg: "bg-white",
+        showButton: true,
+        btnBg: "bg-black",
+        btnText: "text-white",
+      },
+      team2: {
+        name: "Join Team Black",
+        image: teamBlack,
+        bg: "bg-[#1A1A1A]",
+        showButton: true,
+        btnBg: "bg-white",
+        btnText: "text-black",
+      },
     },
     {
       title: "Trading Cards",
       description:
-        "Yes. You read that right. Now you can chase trading cards from the brands you love, your favorite products and celebrities - only on Spottr",
-        team1: { name: "Join Team White", bg: "bg-white", textColor: "text-white", btnBg: "bg-black", btnText: "text-white" },
-        team2: { name: "Join Team Black", bg: "bg-black", textColor: "text-black", btnBg: "bg-white", btnText: "text-black" },
+        "Yes. You read that right. Now you can chase trading cards from your favorite celebrities, the brands you love and the products you cherish - only on Spottr",
+      team1: {
+        name: "Spacer",
+        image: spacer,
+        bg: "bg-[#121212]",
+        showButton: false,
+      },
+      team2: {
+        name: "Baller",
+        image: baller,
+        bg: "bg-[#2D1F1E]",
+        showButton: false,
+      },
     },
-    // {
-    //   title: "Entrepreneurs’ Room",
-    //   description:
-    //     "Network with business founders, get insights from top mentors, and collaborate on ideas that push innovation forward.",
-    //   team1: { name: "Join Startup Team", bg: "bg-white", textColor: "text-black", btnBg: "bg-black", btnText: "text-white" },
-    //   team2: { name: "Join Investors Circle", bg: "bg-black", textColor: "text-white", btnBg: "bg-white", btnText: "text-black" },
-    // },
   ];
 
   return (
@@ -69,21 +91,30 @@ export default function CommunitySection() {
 
               {/* Teams */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 w-full sm:w-[80%] mx-auto">
+                {/* Team 1 */}
                 <div
-                  className={`${slide.team1.bg} p-6 sm:p-8 rounded-3xl flex justify-center items-end h-[350px] sm:h-[400px] md:h-[500px]`}
+                  className={`${slide.team1.bg} rounded-3xl flex justify-center items-end h-[350px] sm:h-[400px] md:h-[500px] relative overflow-hidden bg-cover bg-center`}
+                  style={{ backgroundImage: `url(${slide.team1.image})` }}
                 >
-                  <Button
-                    text={slide.team1.name}
-                    className={`${slide.team1.btnText} ${slide.team1.btnBg} p-2 px-4 sm:px-6 text-xs sm:text-sm font-light`}
-                  />
+                  {slide.team1.showButton && (
+                    <Button
+                      text={slide.team1.name}
+                      className={`${slide.team1.btnText} ${slide.team1.btnBg} mb-6 sm:mb-8 p-2 px-4 sm:px-6 text-xs sm:text-sm font-light z-10`}
+                    />
+                  )}
                 </div>
+
+                {/* Team 2 */}
                 <div
-                  className={`${slide.team2.bg} p-6 sm:p-8 rounded-3xl flex justify-center items-end h-[350px] sm:h-[400px] md:h-[500px]`}
+                  className={`${slide.team2.bg} rounded-3xl flex justify-center items-end h-[350px] sm:h-[400px] md:h-[500px] relative overflow-hidden bg-cover bg-center`}
+                  style={{ backgroundImage: `url(${slide.team2.image})` }}
                 >
-                  <Button
-                    text={slide.team2.name}
-                    className={`${slide.team2.btnText} ${slide.team2.btnBg} p-2 px-4 sm:px-6 text-xs sm:text-sm font-light`}
-                  />
+                  {slide.team2.showButton && (
+                    <Button
+                      text={slide.team2.name}
+                      className={`${slide.team2.btnText} ${slide.team2.btnBg} mb-6 sm:mb-8 p-2 px-4 sm:px-6 text-xs sm:text-sm font-light z-10`}
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -93,3 +124,4 @@ export default function CommunitySection() {
     </section>
   );
 }
+

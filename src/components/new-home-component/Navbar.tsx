@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import logo from "../../assets/spottr-logo.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const navItems = [
-  { label: "Home", href: "#how" },
-  { label: "About", href: "#features" },
-  { label: "Contact", href: "#testimonials" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact-us" },
 ];
 
 export default function Navbar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
   // Disable background scroll when drawer is open
@@ -34,15 +35,21 @@ export default function Navbar() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-12">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              className="text-sm font-medium text-white/80 hover:text-white transition-all duration-200"
-            >
-              {item.label}
-            </a>
-          ))}
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.href;
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                className={`text-sm font-medium transition-all duration-200 ${isActive
+                  ? "text-white font-bold underline underline-offset-4"
+                  : "text-white/80 hover:text-white"
+                  }`}
+              >
+                {item.label}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Desktop CTA */}
@@ -59,7 +66,7 @@ export default function Navbar() {
           onClick={() => setIsOpen(true)}
           aria-label="Open menu"
         >
-          <Menu size={25} color="#274B89"/>
+          <Menu size={25} color="#274B89" />
         </button>
       </div>
 
@@ -73,9 +80,8 @@ export default function Navbar() {
 
       {/* Mobile Drawer */}
       <div
-        className={`fixed top-0 left-0 h-screen w-3/4 max-w-xs bg-[#143772] text-white shadow-xl z-50 flex flex-col p-6 transform transition-transform duration-300 ease-in-out md:hidden ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
+        className={`fixed top-0 left-0 h-screen w-3/4 max-w-xs bg-[#143772] text-white shadow-xl z-50 flex flex-col p-6 transform transition-transform duration-300 ease-in-out md:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
       >
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -94,16 +100,22 @@ export default function Navbar() {
 
         {/* Navigation Links */}
         <nav className="flex flex-col space-y-6">
-          {navItems.map((item) => (
-            <a
-              key={item.href}
-              href={item.href}
-              onClick={() => setIsOpen(false)}
-              className="text-lg font-medium text-white/90 hover:text-white transition-all duration-200"
-            >
-              {item.label}
-            </a>
-          ))}
+          {navItems.map((item) => {
+            const isActive = location.pathname === item.href;
+            return (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setIsOpen(false)}
+                className={`text-lg font-medium transition-all duration-200 ${isActive
+                    ? "text-white font-bold underline underline-offset-4"
+                    : "text-white/90 hover:text-white"
+                  }`}
+              >
+                {item.label}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Divider */}

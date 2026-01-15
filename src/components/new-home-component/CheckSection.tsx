@@ -5,12 +5,12 @@ import "swiper/css";
 import phone from "../../assets/images/phone-website.png";
 import clothes from "../../assets/images/clothes.png";
 
-export default function CheckSection() {
-  const cards = Array(8).fill({
-    title: "Cubana Men Coloured",
-    image: clothes,
-  });
+const CARDS = Array(8).fill({
+  title: "Cubana Men Coloured",
+  image: clothes,
+});
 
+export default function CheckSection() {
   return (
     <section className="rounded-3xl bg-[#D7E7FE] p-6 sm:p-8 md:p-10 mt-10 md:mt-20">
       {/* ✅ Desktop: 2-column | Mobile: stacked */}
@@ -53,6 +53,7 @@ export default function CheckSection() {
                 disableOnInteraction: false,
               }}
               loop={true}
+              a11y={{ enabled: false }}
               modules={[Autoplay]}
               className="w-full"
               breakpoints={{
@@ -62,7 +63,7 @@ export default function CheckSection() {
                 1024: { slidesPerView: 2.5 },
               }}
             >
-              {cards.map((card, index) => (
+              {CARDS.map((card, index) => (
                 <SwiperSlide key={index}>
                   <div
                     className="relative rounded-2xl overflow-hidden h-[400px] shadow-lg border-4 border-[#9A9393]"

@@ -3,19 +3,19 @@ import { Sparkles } from "lucide-react";
 const features = [
   {
     title: "Check-in",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description: "Check-in to your favorite spots to find the treasures in the city",
   },
   {
     title: "Take tasks",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description: "Brands make the city tick. Find, engage, win prizes from your favorites"
   },
   {
     title: "Location calls",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description: "These broadcasts notify you of happy hours, chill events and great stuff",
   },
   {
     title: "Recommend",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    description: "Help others discover the city and earn for yourself everyday",
   },
 ];
 

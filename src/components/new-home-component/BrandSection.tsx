@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -5,6 +6,9 @@ import "swiper/css";
 import { Trophy, Users, Clock, ArrowUpRight } from "lucide-react";
 import pokemon from "../../assets/images/pokemon.png";
 import cup from "../../assets/images/cup.svg";
+
+const truncateText = (text: string, maxLength: number) =>
+  text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 
 // --- Card component ---
 interface BrandCardProps {
@@ -26,7 +30,7 @@ function BrandCard({
   description,
   tokens = 150,
   slots = 34,
-  timeLeft = "02:33min left",
+  timeLeft = "02:33min",
 }: BrandCardProps) {
   return (
     <div className="relative rounded-3xl overflow-hidden shadow-md border-4 border-[#3567E0] w-full max-w-sm mx-auto">
@@ -50,24 +54,24 @@ function BrandCard({
       {/* Bottom section */}
       <div className="relative p-4 sm:p-6 text-white" style={{ backgroundColor: bottomBg }}>
         {/* Stats */}
-        <div className="flex items-center flex-wrap gap-3 sm:gap-5 mb-3">
+        <div className="flex items-center flex-wrap gap-3 mb-3">
           <div className="flex items-center gap-2 text-white/90">
             <span className="w-3 h-3 rounded-full bg-[#FF4B4B]" />
-            <span className="text-xs sm:text-sm">{tokens} Cliqtokens</span>
+            <span className="text-xs ">{tokens} Cliqtokens</span>
           </div>
           <div className="flex items-center gap-2 text-white/90">
-            <Users className="w-4 h-4" />
-            <span className="text-xs sm:text-sm">Slots: {slots}</span>
+            <Users className="w-3 h-3" />
+            <span className="text-xs ">Slots: {slots}</span>
           </div>
           <div className="flex items-center gap-2 text-[#FF6A5C] font-semibold">
-            <Clock className="w-4 h-4" />
-            <span className="text-xs sm:text-sm">{timeLeft}</span>
+            <Clock className="w-3 h-3" />
+            <span className="text-xs ">{timeLeft}</span>
           </div>
         </div>
 
         {/* Content */}
-        <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-2">{title}</h3>
-        <p className="text-xs sm:text-sm text-white/90 leading-relaxed">{description}</p>
+        <h3 className="text-lg sm:text-xl md:text-xl font-bold mb-2">{title}</h3>
+        <p className="text-xs sm:text-xs text-white/90 leading-relaxed">  {truncateText(description, 100)}</p>
 
         {/* CTA */}
         <button className="absolute bottom-4 right-4 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black flex items-center justify-center shadow-md">
@@ -81,14 +85,48 @@ function BrandCard({
 // --- BrandSection with two Swipers ---
 export default function BrandSection() {
   const cards = [
-    { topBg: "#EBD5D1", bottomBg: "#6F59F6" },
-    { topBg: "#D8F3DC", bottomBg: "#2D6A4F" },
-    { topBg: "#FFE3E3", bottomBg: "#FF6F91" },
-    { topBg: "#D7E7FE", bottomBg: "#274B89" },
-    { topBg: "#FFF3B0", bottomBg: "#3D405B" },
-    { topBg: "#D8F3DC", bottomBg: "#2D6A4F" },
-    { topBg: "#FFE3E3", bottomBg: "#FF6F91" },
+    {
+      topBg: "#EBD5D1",
+      bottomBg: "#6F59F6",
+      title: "Help us decide what...",
+      description: "We’re launching new merchandise and want our community to decide what goes live.",
+    },
+    {
+      topBg: "#EDCBCC",
+      bottomBg: "#473838",
+      title: "Which flavor should we launch next?",
+      description: "Vote for your favorite — the winning option goes into production.",
+    },
+    {
+      topBg: "#FFE3E3",
+      bottomBg: "#FF6F91",
+      title: "This or That?",
+      description: "Pick one option and help settle the debate in seconds.",
+    },
+    {
+      topBg: "#D7E7FE",
+      bottomBg: "#274B89",
+      title: "Does this idea make sense?",
+      description: "I’m working on something new and want outside opinions before I commit.",
+    },
+    {
+      topBg: "#FFF3B0",
+      bottomBg: "#3D405B",
+      title: "Which cover should we drop?",
+      description: "Help us decide which cover art makes it to streaming platforms.",
+    },
+    {
+      topBg: "#D8F3DC",
+      bottomBg: "#2D6A4F",
+      title: "Pick our next campaign tagline",
+      description: "Help shape our next campaign and get rewarded for your creativity.",
+    },
+    { topBg: "#FFE3E3", bottomBg: "#FF6F91", title: "Lagos or Abuja this weekend?", description: "Help me choose where to spend my weekend based on vibes, not just budget." },
   ];
+
+  const shuffledCards = useMemo(() => {
+    return [...cards].sort(() => Math.random() - 0.5);
+  }, []);
 
   return (
     <section className="p-6 sm:p-8 mt-10">
@@ -135,14 +173,14 @@ export default function BrandSection() {
             1280: { slidesPerView: 4 },
           }}
         >
-          {cards.map((c, idx) => (
+          {shuffledCards.map((c, idx) => (
             <SwiperSlide key={`top-${idx}`}>
               <BrandCard
                 image={pokemon}
                 topBg={c.topBg}
                 bottomBg={c.bottomBg}
-                title="Help us decide what..."
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit adipiscing."
+                title={c.title}
+                description={c.description}
               />
             </SwiperSlide>
           ))}
@@ -176,8 +214,8 @@ export default function BrandSection() {
                 image={pokemon}
                 topBg={c.topBg}
                 bottomBg={c.bottomBg}
-                title="Help us decide what..."
-                description="Lorem ipsum dolor sit amet, consectetur adipiscing elit adipiscing."
+                title={c.title}
+                description={c.description}
               />
             </SwiperSlide>
           ))}
