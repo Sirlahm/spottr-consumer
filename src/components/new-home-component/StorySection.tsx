@@ -26,6 +26,7 @@ const recommendations: RecItem[] = [
 
 // 3 stacked carousels, each with 3–5 slides (dummy data)
 const miniCarousels: RecItem[][] = Array.from({ length: 3 }).map((_, idx) => {
+
   const count = 3 + ((idx + 1) % 3); // 3,4,5
   const pool = [item1, item2, item3, item2, item1];
   const titles = [
@@ -43,28 +44,54 @@ const miniCarousels: RecItem[][] = Array.from({ length: 3 }).map((_, idx) => {
   }));
 });
 
-function StoryCard() {
+const storyCardsData = [
+  {
+    user: { name: "Sarah Johnson", avatar: lady, time: "2h ago" },
+    content:
+      "I just bought this speaker. It’s perfect for remote work presentations and video calls. The portable design allows easy transport between meetings while maintaining excellent sound quality for professional communication.",
+    recommendations: recommendations,
+  },
+  {
+    user: { name: "Emily Parker", avatar: lady, time: "5h ago" },
+    content:
+      "This fitness tracker has completely transformed my morning routine. The sleep tracking is incredibly accurate, and the daily insights help me stay energized throughout the day.",
+    recommendations: [
+      { title: "U-Fitness Weekly Plan", brand: "Soundwave", price: "₦150,000.00", image: item2 },
+      { title: "Zenlife Essentials", brand: "Soundwave", price: "₦50,000.00", image: item3 },
+    ],
+  },
+  {
+    user: { name: "David Miller", avatar: lady, time: "1d ago" },
+    content:
+      "Absolutely love the sound quality on these earbuds! They fit perfectly and the battery life lasts me through my entire workday without needing a charge.",
+    recommendations: [
+      { title: "Spottr Active Wear", brand: "Soundwave", price: "₦45,000.00", image: item1 },
+      { title: "Zero Sugar Parfait", brand: "Soundwave", price: "₦15,000.00", image: item1 },
+      { title: "Zenlife Essentials", brand: "Soundwave", price: "₦50,000.00", image: item3 },
+    ],
+  },
+];
+
+function StoryCard({ data }: { data: (typeof storyCardsData)[0] }) {
   return (
-    <div className="relative rounded-2xl bg-[#383838] text-white overflow-hidden border border-[#F5F5F5] shadow-xl">
+    <div className="relative rounded-2xl bg-[#383838] text-white overflow-hidden border border-[#F5F5F5] shadow-xl h-full">
       {/* header */}
       <div className="flex items-center gap-3 px-5 py-3">
-        <img src={lady} alt="avatar" className="w-8 h-8 rounded-full object-cover" />
+        <img src={data.user.avatar} alt="avatar" className="w-8 h-8 rounded-full object-cover" />
         <div className="flex flex-col">
-          <span className="font-semibold text-sm">Sarah Johnson</span>
-          <span className="text-xs text-white/60">2h ago</span>
+          <span className="font-semibold text-sm">{data.user.name}</span>
+          <span className="text-xs text-white/60">{data.user.time}</span>
         </div>
       </div>
 
       {/* body */}
-      <div className="px-5 py-3 text-xs text-white/90 leading-relaxed">
-        I just bought this speaker. It’s perfect for remote work presentations and video calls. The portable design allows easy transport between meetings while maintaining excellent sound quality for professional communication.
-      </div>
+      <div className="px-5 py-3 text-xs text-white/90 leading-relaxed">{data.content}</div>
 
       {/* recommendations */}
       <div className="px-5 pb-5">
-        <p className="text-sm font-medium text-white mb-3">Recommendations ({recommendations.length})</p>
+        <p className="text-sm font-medium text-white mb-3">Recommendations ({data.recommendations.length})</p>
         <div className="space-y-2">
-          {recommendations.map((rec, i) => (
+          {data.recommendations.map((rec, i) => (
             <div key={i} className="flex items-center gap-3  bg-[#464748D1] p-3 rounded-md ">
               <img src={rec.image} alt={rec.title} className="w-10 h-10 rounded-md object-cover" />
               <div className="flex-1">
@@ -110,26 +137,39 @@ export default function StorySection() {
         <div className="text-white md:col-span-2 relative">
           <img src={star} alt="spottr" className="absolute top-[-100px] left-0 hidden md:block" />
           <div className="flex flex-col gap-2">
-          <p className="font-extrabold text-4xl sm:text-5xl md:text-7xl leading-snug sm:leading-tight lg:leading-[50px] text-center md:text-left">
+            <p className="font-extrabold text-4xl sm:text-5xl md:text-7xl leading-snug sm:leading-tight lg:leading-[50px] text-center md:text-left">
               Tell your Story
             </p>
 
             <div className=" mt-3 md:mt-6 text-base max-w-md text-center md:text-left">
               <p>Inspire a mutual to hit their weight loss target or get
-            paid to recommend chill summer cruise for other
-              users and get paid for</p>
+                paid to recommend chill summer cruise for other
+                users and get paid for</p>
             </div>
           </div>
           <div className="mt-8 flex justify-center md:justify-start">
             <Button text="Build your audience" className="bg-white text-[#274B89] px-6 py-3" />
-          </div>  
+          </div>
         </div>
 
         {/* Right side */}
         <div className="grid grid-cols-1 md:grid-cols-7 gap-5 md:col-span-3 relative">
-        <img src={bigstar} alt="spottr" className="absolute top-0 left-0 z-20 hidden md:block" />
+          <img src={bigstar} alt="spottr" className="absolute top-0 left-0 z-20 hidden md:block pointer-events-none" />
           <div className="col-span-4 z-10">
-            <StoryCard />
+            <Swiper
+              modules={[Pagination]}
+              spaceBetween={20}
+              slidesPerView={1}
+              pagination={{ clickable: true }}
+              className=""
+              autoHeight={true}
+            >
+              {storyCardsData.map((data, index) => (
+                <SwiperSlide key={index} className="pb-10">
+                  <StoryCard data={data} />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
           {/* Right column: 3 vertical carousels with pagination dots */}
           <div className=" hidden md:flex flex-col gap-5 md:col-span-3  md:mt-[-100px] z-30">
