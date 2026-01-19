@@ -1,14 +1,16 @@
 import Button from "./Button";
 import lady from "../../assets/images/white-lady.png";
-import item1 from "../../assets/images/item.jpg";
-import item2 from "../../assets/images/item2.png";
-import item3 from "../../assets/images/img3.jpg";
+import item1 from "../../assets/images/p1.jpg";
+import item2 from "../../assets/images/p5.png";
+import item3 from "../../assets/images/p2.png";
+import item4 from "../../assets/images/p4.jpg";
 import star from "../../assets/images/star.svg";
 import bigstar from "../../assets/images/big-star.svg";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import { MiniStory, miniCarouselsData } from "./storyData";
 
 type RecItem = {
   title: string;
@@ -18,10 +20,10 @@ type RecItem = {
 };
 
 const recommendations: RecItem[] = [
-  { title: "Spottr Active Wear", brand: "Soundwave", price: "₦150,000.00", image: item1 },
-  { title: "U-Fitness Weekly Plan", brand: "Soundwave", price: "₦150,000.00", image: item2 },
-  { title: "Zenlife Essentials", brand: "Soundwave", price: "₦150,000.00", image: item3 },
-  { title: "Zero Sugar Parfait", brand: "Soundwave", price: "₦150,000.00", image: item1 },
+  { title: "Spottr Active Wear", brand: "Soundwave", price: "₦50,000.00", image: item4 },
+  { title: "U-Fitness Weekly Plan", brand: "Soundwave!å", price: "₦10,000.00", image: item2 },
+  { title: "Zenlife Essentials", brand: "Soundwave", price: "₦60,000.00", image: item3 },
+  { title: "Zero Sugar Parfait", brand: "Soundwave", price: "₦5,000.00", image: item1 },
 ];
 
 // 3 stacked carousels, each with 3–5 slides (dummy data)
@@ -30,7 +32,7 @@ const miniCarousels: RecItem[][] = Array.from({ length: 3 }).map((_, idx) => {
   const count = 3 + ((idx + 1) % 3); // 3,4,5
   const pool = [item1, item2, item3, item2, item1];
   const titles = [
-    "I Just bought this speaker, It’s perfect for remote work presentations and video calls. The portable design allows easy transport between meetings while maintaining excellent sound quality for professional communication.",
+    "Detty December in Nigeria can be alot if you do not have the right friends and so I am putting together this list to help anyone who is planning a trip to Nigeria this December to discover the right vendors or product for a great time",
     "I Just bought this speaker, It’s perfect for remote work presentations and video calls. The portable design allows easy transport between meetings while maintaining excellent sound quality for professional communication.",
     "I Just bought this speaker, It’s perfect for remote work presentations and video calls. The portable design allows easy transport between meetings while maintaining excellent sound quality for professional communication.",
     "I Just bought this speaker, It’s perfect for remote work presentations and video calls. The portable design allows easy transport between meetings while maintaining excellent sound quality for professional communication.",
@@ -48,28 +50,16 @@ const storyCardsData = [
   {
     user: { name: "Sarah Johnson", avatar: lady, time: "2h ago" },
     content:
-      "I just bought this speaker. It’s perfect for remote work presentations and video calls. The portable design allows easy transport between meetings while maintaining excellent sound quality for professional communication.",
+      "I struugled with weight loss for 15 years until I started to take it seriously, At first it was a challenge but over the course of 3 months, I became used to my new routine and I am sharing the product that helped me on my journey.",
     recommendations: recommendations,
   },
   {
-    user: { name: "Emily Parker", avatar: lady, time: "5h ago" },
+    user: { name: "Sarah Johnson", avatar: lady, time: "2h ago" },
     content:
-      "This fitness tracker has completely transformed my morning routine. The sleep tracking is incredibly accurate, and the daily insights help me stay energized throughout the day.",
-    recommendations: [
-      { title: "U-Fitness Weekly Plan", brand: "Soundwave", price: "₦150,000.00", image: item2 },
-      { title: "Zenlife Essentials", brand: "Soundwave", price: "₦50,000.00", image: item3 },
-    ],
+      "I struugled with weight loss for 15 years until I started to take it seriously, At first it was a challenge but over the course of 3 months, I became used to my new routine and I am sharing the product that helped me on my journey.",
+    recommendations: recommendations,
   },
-  {
-    user: { name: "David Miller", avatar: lady, time: "1d ago" },
-    content:
-      "Absolutely love the sound quality on these earbuds! They fit perfectly and the battery life lasts me through my entire workday without needing a charge.",
-    recommendations: [
-      { title: "Spottr Active Wear", brand: "Soundwave", price: "₦45,000.00", image: item1 },
-      { title: "Zero Sugar Parfait", brand: "Soundwave", price: "₦15,000.00", image: item1 },
-      { title: "Zenlife Essentials", brand: "Soundwave", price: "₦50,000.00", image: item3 },
-    ],
-  },
+ 
 ];
 
 function StoryCard({ data }: { data: (typeof storyCardsData)[0] }) {
@@ -97,8 +87,9 @@ function StoryCard({ data }: { data: (typeof storyCardsData)[0] }) {
               <div className="flex-1">
                 <p className="text-sm font-semibold leading-tight">{rec.title}</p>
                 <p className="text-[11px] text-white leading-tight">{rec.brand}</p>
+                <span className="text-[11px] text-white">{rec.price}</span>
               </div>
-              <span className="text-[11px] text-white">{rec.price}</span>
+              
             </div>
           ))}
         </div>
@@ -107,22 +98,24 @@ function StoryCard({ data }: { data: (typeof storyCardsData)[0] }) {
   );
 }
 
-function MiniStoryCard({ data }: { data: RecItem }) {
+function MiniStoryCard({ data }: { data: MiniStory }) {
   return (
     <div className="rounded-2xl bg-[#383838] text-white p-4">
       <div className="flex items-center gap-3">
-        <img src={lady} alt="avatar" className="w-7 h-7 rounded-full object-cover" />
+        <img src={data.user.avatar} alt="avatar" className="w-7 h-7 rounded-full object-cover" />
         <div className="flex-1">
-          <p className="text-sm font-semibold leading-tight">Sarah Johnson</p>
-          <p className="text-[11px] text-white/70 leading-tight">2h ago</p>
+          <p className="text-sm font-semibold leading-tight">{data.user.name}</p>
+          <p className="text-[11px] text-white/70 leading-tight">{data.user.time}</p>
         </div>
       </div>
-      <div className="mt-3 text-xs text-white/80 leading-relaxed">{data.title}</div>
+      <div className="mt-3 text-xs text-white/80 leading-relaxed">{data.story}</div>
       <div className="mt-2 flex items-center gap-2 bg-[#464748D1] p-2 rounded-md mb-5">
-        <img src={data.image} alt={data.title} className="w-12 h-12 rounded-md object-cover" />
+        <img src={data.product.image} alt={data.product.title} className="w-12 h-12 rounded-md object-cover" />
         <div className="flex flex-col">
-          <span className="text-[11px]">{data.brand}</span>
-          <span className="text-[11px] text-white/80">{data.price}</span>
+
+        <span className="text-[12px] font-bold">{data.product.title}</span>
+          <span className="text-[11px]">{data.product.brand}</span>
+          <span className="text-[11px] text-white/80">{data.product.price}</span>
         </div>
       </div>
     </div>
@@ -173,7 +166,7 @@ export default function StorySection() {
           </div>
           {/* Right column: 3 vertical carousels with pagination dots */}
           <div className=" hidden md:flex flex-col gap-5 md:col-span-3  md:mt-[-100px] z-30">
-            {miniCarousels.map((carousel, idx) => (
+            {miniCarouselsData.map((carousel, idx) => (
               <div key={idx}>
                 <Swiper
                   modules={[Pagination]}
